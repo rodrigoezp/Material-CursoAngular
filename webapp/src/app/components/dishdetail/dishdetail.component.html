@@ -1,0 +1,53 @@
+<!-- assignment 1 - task 1 -->
+<div class="container"
+     fxLayout="row wrap"
+     fxLayout.sm="column"
+     fxLayout.xs="column"
+     fxLayoutAlign.gt-md="space-around center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div fxFlex="100">
+    <div>
+      <h3>{{dish.name | uppercase}}</h3>
+      <hr>
+    </div>
+  </div>
+
+  <!-- assignment 1 - task 2 -->
+  <div fxFlex="40" *ngIf="dish">
+    <!--<p>Display the details of the Dish here</p>-->
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>{{dish.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+      <mat-card-content>
+        <p>
+          {{dish.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="goBack()">BACK</button>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+  <div fxFlex="40" style="padding-top:0em">
+    <h1>Comments</h1>
+
+    <mat-list-item *ngFor="let comment of dish.comments">
+      <p mat-line>{{comment.comment}}</p>
+      <p mat-line><span>{{comment.rating}} stars</span></p>
+      <p mat-line>
+        <span>-- {{comment.author}}  {{comment.date | date}} </span>
+        <span></span>
+      </p>
+    </mat-list-item>
+  </div>
+</div>
