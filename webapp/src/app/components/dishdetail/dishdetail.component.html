@@ -8,7 +8,7 @@
      fxLayoutGap.xs="0">
   <div fxFlex="100">
     <div>
-      <h3>{{dish.name | uppercase}}</h3>
+      <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
       <hr>
     </div>
   </div>
@@ -38,7 +38,7 @@
 
   </div>
 
-  <div fxFlex="40" style="padding-top:0em">
+  <div fxFlex="40" style="padding-top:0em" *ngIf="dish">
     <h1>Comments</h1>
 
     <mat-list-item *ngFor="let comment of dish.comments">
@@ -49,5 +49,10 @@
         <span></span>
       </p>
     </mat-list-item>
+  </div>
+
+
+  <div [hidden]="dishes">
+    <mat-spinner></mat-spinner><h4>Cargando ...</h4>
   </div>
 </div>

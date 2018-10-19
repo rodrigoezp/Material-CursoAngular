@@ -3,7 +3,8 @@
      fxLayout.sm="column"
      fxLayout.xs="column"
      fxLayoutAlign.gt-md="space-around center"
-     fxLayoutGap="10px">
+     fxLayoutGap="10px"
+     *ngIf = "dish && promotion && leader">
   <mat-card *ngIf="dish" fxFlex>
     <mat-card-header>
       <div mat-card-avatar></div>
@@ -48,4 +49,7 @@
       </p>
     </mat-card-content>
   </mat-card>
+</div>
+<div [hidden]="dish && promotion && leader">
+  <mat-spinner></mat-spinner><h4>Cargando ...</h4>
 </div>

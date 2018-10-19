@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule, MatGridListModule, MatCardModule, MatButtonModule, MatDialogModule, MatFormFieldModule,
-         MatInputModule,  MatCheckboxModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+         MatInputModule,  MatCheckboxModule, MatSelectModule, MatSlideToggleModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -52,6 +52,7 @@ import { LoginComponent } from './components/login/login.component';
     MatCheckboxModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule
   ],
