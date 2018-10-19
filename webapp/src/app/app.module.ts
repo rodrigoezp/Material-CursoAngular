@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatListModule, MatGridListModule, MatCardModule, MatButtonModule } from '@angular/material';
+import { MatListModule, MatGridListModule, MatCardModule, MatButtonModule, MatDialogModule, MatFormFieldModule,
+         MatInputModule,  MatCheckboxModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -17,6 +19,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PromotionService } from '../services/promotion.service';
 import { LeaderService } from '../services/leader.service';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,11 @@ import { LeaderService } from '../services/leader.service';
     FooterComponent,
     AboutComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
+  ],
+  entryComponents: [
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,15 @@ import { LeaderService } from '../services/leader.service';
     MatGridListModule,
     MatButtonModule,
     MatCardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [DishService,
     PromotionService,
