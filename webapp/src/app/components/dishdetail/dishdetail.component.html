@@ -1,22 +1,14 @@
 <!-- assignment 1 - task 1 -->
 <div class="container"
-     fxLayout="row wrap"
+     fxLayout="row"
      fxLayout.sm="column"
      fxLayout.xs="column"
      fxLayoutAlign.gt-md="space-around center"
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
-  <div fxFlex="100">
-    <div>
-      <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
-      <hr>
-    </div>
-  </div>
-
   <!-- assignment 1 - task 2 -->
   <div fxFlex="40" *ngIf="dish">
     <!--<p>Display the details of the Dish here</p>-->
-
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -37,25 +29,69 @@
         <span class="flex-spacer"></span>
         <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
       </mat-card-actions>
+
     </mat-card>
-
   </div>
+  <div fxFlex *ngIf="dish">
+    <!--<p>Display the list of comments here</p>-->
+    <!-- assignment 1 - task 3 -->
+    <p><strong>Comments</strong></p>
 
-  <div fxFlex="40" style="padding-top:0em" *ngIf="dish">
-    <h1>Comments</h1>
+    <mat-list fxFlex>
+      <mat-list-item *ngFor="let comment of dish.comments">
+        <p mat-line>{{comment.comment}}</p>
+        <p mat-line><span>{{comment.rating}} stars</span></p>
+        <p mat-line>
+          <span>-- {{comment.author}}  {{comment.date | date}} </span>
+        </p>
+      </mat-list-item>
+      <!-- Assignment 3 - Task 3-->
+      <mat-list-item *ngIf="commentsForm.valid">
+        <p mat-line>{{comment.comment}}</p>
+        <p mat-line><span>{{comment.rating}} stars</span></p>
+        <p mat-line>
+          <span>-- {{comment.author}} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
 
-    <mat-list-item *ngFor="let comment of dish.comments">
-      <p mat-line>{{comment.comment}}</p>
-      <p mat-line><span>{{comment.rating}} stars</span></p>
-      <p mat-line>
-        <span>-- {{comment.author}}  {{comment.date | date}} </span>
-        <span></span>
-      </p>
-    </mat-list-item>
+    <!-- Assignment 3 - Tasks 1 and 2-->
+    <!--<hr />-->
+    <div class="container"
+     fxLayout="column"
+     fxLayout.sm="column"
+     fxLayout.xs="column">
+      <!--<h3>Input your Comments</h3>
+    <p>{{ commentsForm.value | json }} {{ commentsForm.status | json }}</p>-->
+      <form novalidate [formGroup]="commentsForm" (ngSubmit)="onSubmit()" class="full-width" fxFlex fxFlexDirection>
+        <p>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="author" placeholder="Name" type="text" required>
+            <mat-hint>
+              <span [hidden]="!(formErrors.author)">
+                {{formErrors.author}}
+              </span>
+            </mat-hint>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-slider formControlName="rating" min="1" max="5" step="1" thumbLabel tickInterval="1"></mat-slider>
+        <p>
+          <mat-form-field class="full-width">
+            <textarea matInput formControlName="comment" placeholder="Your Comment" rows="5" required></textarea>
+            <mat-hint>
+              <span [hidden]="!(formErrors.comment)">
+                {{formErrors.comment}}
+              </span>
+            </mat-hint>
+          </mat-form-field>
+        </p>
+        <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentsForm.invalid">Submit</button>
+      </form>
+    </div>
   </div>
-
-
-  <div [hidden]="dishes">
+  <div [hidden]="dish">
     <mat-spinner></mat-spinner><h4>Cargando ...</h4>
   </div>
 </div>
+

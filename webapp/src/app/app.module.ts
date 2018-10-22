@@ -1,10 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatListModule, MatGridListModule, MatCardModule, MatButtonModule, MatDialogModule, MatFormFieldModule,
-         MatInputModule,  MatCheckboxModule, MatSelectModule, MatSlideToggleModule, MatProgressSpinnerModule } from '@angular/material';
+import { 
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatToolbarModule,
+  MatListModule,
+  MatGridListModule,
+  MatCardModule,
+  MatIconModule,
+  MatProgressSpinnerModule,
+  MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -39,20 +53,25 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    FlexLayoutModule,
-    MatListModule,
-    MatGridListModule,
     MatButtonModule,
-    MatCardModule,
-    AppRoutingModule,
-    MatDialogModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule,
+    MatRadioModule,
     MatSelectModule,
+    MatSliderModule,
     MatSlideToggleModule,
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    FlexLayoutModule,
+    MatCardModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
