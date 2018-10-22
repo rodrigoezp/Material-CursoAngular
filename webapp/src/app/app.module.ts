@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { baseURL } from './../shared/baseurl';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { 
   MatButtonModule,
@@ -20,7 +21,7 @@ import {
   MatProgressSpinnerModule,
   MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { DishdetailComponent } from './components/dishdetail/dishdetail.component';
@@ -34,6 +35,9 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PromotionService } from '../services/promotion.service';
 import { LeaderService } from '../services/leader.service';
 import { LoginComponent } from './components/login/login.component';
+import { ProcessHTTPMsgService } from '../services/processhttpmsg.service';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from '../shared/restConfig';
 
 @NgModule({
   declarations: [
@@ -73,11 +77,15 @@ import { LoginComponent } from './components/login/login.component';
     MatCardModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   providers: [DishService,
     PromotionService,
-    LeaderService],
+    LeaderService,
+    ProcessHTTPMsgService,
+    {provide: 'baseURL', useValue: baseURL}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
   <!-- assignment 1 - task 2 -->
-  <div fxFlex="40" *ngIf="dish">
+  <div fxFlex="40" *ngIf="dish"  [@visibility]="visibility">
     <!--<p>Display the details of the Dish here</p>-->
     <mat-card>
       <mat-card-header>
@@ -15,7 +15,7 @@
           <h3>{{dish.name | uppercase}}</h3>
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+      <img mat-card-image src="{{ baseURL + dish.image }}" alt={{dish.name}}>
       <mat-card-content>
         <p>
           {{dish.description}}
@@ -32,7 +32,7 @@
 
     </mat-card>
   </div>
-  <div fxFlex *ngIf="dish">
+  <div fxFlex *ngIf="dish"  [@visibility]="visibility">
     <!--<p>Display the list of comments here</p>-->
     <!-- assignment 1 - task 3 -->
     <p><strong>Comments</strong></p>

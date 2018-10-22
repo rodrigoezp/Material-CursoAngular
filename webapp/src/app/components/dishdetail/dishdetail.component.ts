@@ -1,18 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
-
-//Assignment 3 - Task 2
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish } from "src/models/dish";
 import { Comment } from "src/models/comment";
 import { DishService } from "src/services/dish.service";
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+        state('shown', style({
+            transform: 'scale(1.0)',
+            opacity: 1
+        })),
+        state('hidden', style({
+            transform: 'scale(0.5)',
+            opacity: 0
+        })),
+        transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailComponent implements OnInit {
 
@@ -23,7 +35,7 @@ export class DishdetailComponent implements OnInit {
 
   //ngOnInit() {
   //}
-
+  dishcopy: Dish;
   dish: Dish;
   dishIds: number[];
   prev: number;
@@ -51,26 +63,20 @@ export class DishdetailComponent implements OnInit {
       'maxlength': 'Name cannot be more than 25 characters long.'
     },
   };
-
+   visibility = 'shown';
   constructor(
     private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location,
-    //Assignment 3 - Task 2
+    @Inject('baseURL') private baseURL,
     private fb: FormBuilder) { }
 
   ngOnInit() {
     this.dish = null;
-    console.log("AAAAAAA");
-    this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
+    this.dishservice.getDishes().subscribe(dishIds => this.dishIds = dishIds.map(dish => dish.id));
 
-    this.route.params.forEach((params: Params) => {
-      if (params['id'] !== undefined) {
-        let id = params['id'];
-        this.dishservice.getDish(id)
-            .subscribe(dish => this.dish = dish);
-      } 
-    });
+    this.route.params.pipe(switchMap((params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); }))
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; })
     this.createForm();
   }
 
@@ -127,14 +133,18 @@ export class DishdetailComponent implements OnInit {
     console.log(this.comment);
 
     this.comment.date = new Date().toISOString();//Assignment 3 - Task 3
-    this.dish.comments.push(this.comment);
 
-    this.commentsForm.reset({
-      comment: '',
-      author: '',
-      rating: 5,
-      //date: new Date().toISOString()
-    });
+
+    this.dishcopy.comments.push(this.comment);
+    this.dishservice.saveDish(this.dishcopy).subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+          this.commentsForm.reset({
+            comment: '',
+            author: '',
+            rating: 5,
+            //date: new Date().toISOString()
+          });
+      });
   }
 
 }
