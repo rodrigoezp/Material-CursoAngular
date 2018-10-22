@@ -61,7 +61,7 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
     this.dish = null;
-
+    console.log("AAAAAAA");
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
 
     this.route.params.forEach((params: Params) => {
